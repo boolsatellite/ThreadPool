@@ -20,11 +20,9 @@ ThreadPool::ThreadPool()
 
 ThreadPool::~ThreadPool() {
     isPoolrunning = false;
-    //等待线程池中所有的线程返回
-    notEmpty_.notify_all();
     std::unique_lock<std::mutex> lock(taskQueMtx_);
+    notEmpty_.notify_all();
     exitCond_.wait(lock , [&]()->auto {return threads_.size() == 0;});
-
 }
 
 void ThreadPool::setMode(PoolMod mode) {

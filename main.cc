@@ -22,7 +22,7 @@ public:
         for(int i=begin_ ; i <= end_ ; i++) {
             sum += i;
         }
-        ::sleep(3);
+        ::sleep(30);
         std::cout <<"run tid " << std::this_thread::get_id() << " end\n";
         return sum;
     }
@@ -31,6 +31,7 @@ private:
     int begin_;
     int end_;
 };
+
 
 int main() {
     {
@@ -43,12 +44,10 @@ int main() {
         Result res4 = threadPool.submitTask(std::make_shared<MyTask>(1, 1000));
         Result res5 = threadPool.submitTask(std::make_shared<MyTask>(1, 1000));
         Result res6 = threadPool.submitTask(std::make_shared<MyTask>(1, 1000));
-        Result res7 = threadPool.submitTask(std::make_shared<MyTask>(1, 1000));
-
-        unsigned int ret1 = res1.get().cast<int>();
+/*
+        int ret1 = res1.get().cast<int>();
         std::cout << "sum = " << (ret1) << std::endl;
+*/
     }
-
-    getchar();
-    std::this_thread::sleep_for(std::chrono::hours(1));
+    std::cout << "main over" << std::endl;
 }
